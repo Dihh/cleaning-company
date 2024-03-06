@@ -1,0 +1,234 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Cleaning company"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "tags": [
+    {
+      "name": "client"
+    }
+  ],
+  "paths": {
+    "/clients": {
+      "get": {
+        "tags": [
+          "client"
+        ],
+        "summary": "Get all clients",
+        "operationId": "getClients",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Client"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "client"
+        ],
+        "summary": "Create client",
+        "operationId": "createClient",
+        "requestBody": {
+          "description": "Created client object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendClient"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid name or email"
+          },
+          "500": {
+            "description": "Something went wrong"
+          }
+        }
+      }
+    },
+    "/clients/{id}": {
+      "get": {
+        "tags": [
+          "client"
+        ],
+        "summary": "Get client",
+        "operationId": "getClient",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of client to return",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "client not found"
+          },
+          "500": {
+            "description": "Something went wrong"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "client"
+        ],
+        "summary": "Update client",
+        "operationId": "updateClient",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of client to return",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Update client object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendClient"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "client not found"
+          },
+          "400": {
+            "description": "invalid name or email"
+          },
+          "500": {
+            "description": "Something went wrong"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "client"
+        ],
+        "summary": "Delete client",
+        "operationId": "dedleteClient",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of client to return",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "204": {
+            "description": "client not found"
+          },
+          "500": {
+            "description": "Something went wrong"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Client": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "d6eb621f-6dd0-4cdc-93f5-07f51b249b51"
+          },
+          "name": {
+            "type": "string",
+            "example": "Diegton Rodrigues"
+          },
+          "email": {
+            "type": "string",
+            "example": "diegton@gmail.com"
+          }
+        }
+      },
+      "SendClient": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Diegton Rodrigues"
+          },
+          "email": {
+            "type": "string",
+            "example": "diegton@gmail.com"
+          }
+        }
+      }
+    }
+  }
+}
