@@ -24,14 +24,20 @@ const client = new Client({
 
 client.connect()
   .then(() => {
-    console.log('Connected to PostgreSQL database');
+    // console.log('Connected to PostgreSQL database');
     new ClientsController(app, client)
   })
   .catch((err) => {
-    console.error('Error connecting to PostgreSQL database', err);
+    // console.error('Error connecting to PostgreSQL database', err);
   });
 
+  app.get('/users', function(req, res) {
+    res.json({ users: 'allUsers' });
+  });
 
-app.listen(port, () => {
+// new ClientsController(app, client)
+// try{
+export default app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });
+// }catch(e){}
