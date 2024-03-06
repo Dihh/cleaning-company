@@ -9,6 +9,10 @@ CREATE TABLE "clients" (
     CONSTRAINT "PK_Clients" PRIMARY KEY ("id")
 );
 
+ALTER TABLE "clients"
+ADD COLUMN "coordinate_x" integer,
+ADD COLUMN "coordinate_y" integer;
+
 CREATE DATABASE test;
 
 \c test;
@@ -19,3 +23,7 @@ CREATE TABLE "clients" (
     "email" VARCHAR(255) NOT NULL,
     CONSTRAINT "PK_Clients" PRIMARY KEY ("id")
 );
+
+ALTER TABLE "clients"
+ADD COLUMN "coordinate_x" integer,
+ADD COLUMN "coordinate_y" integer;

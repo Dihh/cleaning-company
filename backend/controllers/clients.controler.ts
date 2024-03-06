@@ -2,6 +2,7 @@ import { Express, Request, Response } from "express";
 import { Client as DbClient } from 'pg'
 import { Client } from '../models/client'
 import { Controller } from "./controller";
+import { setCoordinates } from '../utils/utils'
 
 export class ClientsController extends Controller {
     table = "clients"
@@ -44,7 +45,8 @@ export class ClientsController extends Controller {
     insertClient() {
         this.app.post(`/${this.table}`, async (req: Request, res: Response) => {
             const body = req.body
-            const client = new Client('', body.name, body.email)
+            const coordinates = setCoordinates(body)
+            const client = new Client('', body.name, body.email, coordinates)
             try {
                 const clientResult = await client.create(this.dbClient)
                 res.status(201).json(clientResult);
@@ -58,7 +60,8 @@ export class ClientsController extends Controller {
         this.app.patch(`/${this.table}/:id`, async (req: Request, res: Response) => {
             const body = req.body
             const id = req.params.id
-            const client = new Client(id, body.name, body.email)
+            const coordinates = setCoordinates(body)
+            const client = new Client(id, body.name, body.email, coordinates)
             try {
                 const clientResult = await client.update(this.dbClient)
                 res.json(clientResult);
