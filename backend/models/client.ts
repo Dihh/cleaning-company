@@ -101,7 +101,7 @@ export class Client{
                 if (result.rows.length) {
                     resolve(result.rows[0]);
                 } else {
-                    const error: SystemError = { status: SystemErrosStatus.npContent, message: "" }
+                    const error: SystemError = { status: SystemErrosStatus.badRequest, message: "" }
                     reject(error)
                 }
             } catch (err) {
@@ -113,7 +113,7 @@ export class Client{
     }
 
     validateField(fields: (keyof Client)[]){
-        const fieldError = fields.find(field => !this[field])
+        const fieldError = fields.find(field => !this[field] || this[field] == "")
         if(fieldError){
             const error: SystemError = { status: SystemErrosStatus.badRequest, message: `Invalid ${fieldError}` }
             return error

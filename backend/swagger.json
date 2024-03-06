@@ -186,7 +186,7 @@
           "200": {
             "description": "successful operation"
           },
-          "204": {
+          "404": {
             "description": "client not found"
           },
           "500": {

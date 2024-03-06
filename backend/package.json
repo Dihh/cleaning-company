@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "POSRT=3001 jest --coverage",
+    "test": "jest --coverage -- setup.test.ts",
     "start": "node ./dist/index.js",
     "dev": "nodemon index.ts",
     "build": "tsc"
