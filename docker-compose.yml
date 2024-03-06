@@ -1,0 +1,21 @@
+version: "3.7"
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - 3000:3000
+    volumes:
+      - ./backend:/app
+    environment:
+      - PORT=3000
+    command: bash start.sh
+  postgres:
+    image: postgres
+    volumes:
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./postgres/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: "admin"
+    ports:
+      - "5432:5432"
