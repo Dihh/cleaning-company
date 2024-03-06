@@ -23,6 +23,7 @@ const client = new Client({
 client.connect()
   .then(() => {
     console.log('Connected to PostgreSQL database');
+    new ClientsController(app, client)
   })
   .catch((err) => {
     console.error('Error connecting to PostgreSQL database', err);
