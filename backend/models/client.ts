@@ -18,7 +18,7 @@ export class Client{
         return new Promise(async (resolve, reject) => {
             try {
                 const result = await dbClient.query(
-                    `SELECT * FROM ${this.tableName} WHERE NAME LIKE $1 AND EMAIL LIKE $2`,
+                    `SELECT * FROM ${this.tableName} WHERE NAME LIKE $1 AND EMAIL LIKE $2 ORDER BY name ASC`,
                     [`%${name || ""}%`, `%${email || ""}%`]
                     )
                 resolve(result.rows.map((client) => new Client(client.id, client.name, client.email)));

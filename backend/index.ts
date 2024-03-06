@@ -3,6 +3,7 @@ import { Client } from 'pg'
 import dotenv from 'dotenv';
 import { ClientsController } from "./controllers/clients.controler";
 import * as swaggerUi from 'swagger-ui-express';
+var cors = require('cors')
 const swaggerDocument = require('./swagger.json');
 
 
@@ -10,7 +11,8 @@ dotenv.config();
 
 const app: Express = express();
 app.use(express.json());
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use(cors());
 const port = process.env.PORT || 3000;
 const client = new Client({
   user: process.env.DB_USER,
