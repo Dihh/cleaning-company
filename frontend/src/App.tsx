@@ -6,6 +6,10 @@ import './App.css'
 // or less ideally
 import { Button, Card, Col, Container, Form, Pagination, Row, Table, InputGroup } from 'react-bootstrap';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
+
+
 function App() {
   const [count, setCount] = useState(0)
 
@@ -27,9 +31,9 @@ function App() {
             <Card>
               <Card.Body>
                 <Card.Title>Clients</Card.Title>
-                <Form.Group as={Col} md={{ span: 5, offset: 7}}  controlId="validationCustomUsername">
+                <Form.Group as={Col} md={{ span: 5, offset: 7 }} controlId="validationCustomUsername">
                   <InputGroup hasValidation>
-                    <InputGroup.Text id="inputGroupPrepend">Search:</InputGroup.Text>
+                    <InputGroup.Text id="inputGroupPrepend"><FontAwesomeIcon icon={faSearch} /></InputGroup.Text>
                     <Form.Control
                       type="text"
                       placeholder="Username"
@@ -46,7 +50,7 @@ function App() {
                     <tr>
                       <th>Name</th>
                       <th>Email</th>
-                      <th style={{ width: "1rem" }}></th>
+                      <th style={{ width: "3rem" }}></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -58,7 +62,10 @@ function App() {
                     <tr>
                       <td>Jacob</td>
                       <td>Thornton</td>
-                      <td>@fat</td>
+                      <td>
+                        <FontAwesomeIcon icon={faPenToSquare} className='me-2' role="button"/>
+                        <FontAwesomeIcon icon={faTrash} role="button"/>
+                      </td>
                     </tr>
                     <tr>
                       <td>3</td>
