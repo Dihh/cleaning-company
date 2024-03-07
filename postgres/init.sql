@@ -10,8 +10,8 @@ CREATE TABLE "clients" (
 );
 
 ALTER TABLE "clients"
-ADD COLUMN "coordinate_x" integer,
-ADD COLUMN "coordinate_y" integer;
+ADD COLUMN "coordinate_x" integer NOT NULL,
+ADD COLUMN "coordinate_y" integer NOT NULL;
 
 CREATE DATABASE test;
 
@@ -25,5 +25,5 @@ CREATE TABLE "clients" (
 );
 
 ALTER TABLE "clients"
-ADD COLUMN "coordinate_x" integer,
-ADD COLUMN "coordinate_y" integer;
+ADD COLUMN "coordinate_x" integer NOT NULL,
+ADD COLUMN "coordinate_y" integer NOT NULL;
