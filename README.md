@@ -8,6 +8,15 @@ Both frontend and backend use typescript, eslint and jest for testing. The datab
 
 The backend, frontend, and database configuration files will be in this project, but you can go into each specific folder to learn more about each project.
 
+```
+│
+└── backend
+│
+└── frontend
+│
+└── postgres
+```
+
 There are three differents way to run this project: Docker Compose, Docker and local.
 
 The communication between backend and database will use environment variables and depending on chosen way to run this project you will need to set this variables.
@@ -26,14 +35,14 @@ If you need to use a different database with difderents settings you can remove:
 
 ```yaml
 postgres:
-	image: postgres
-	volumes:
-		- ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
-		- ./postgres/data:/var/lib/postgresql/data
-	environment:
-		POSTGRES_PASSWORD: "admin"
-	ports:
-		- "5432:5432"
+  image: postgres
+  volumes:
+    - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    - ./postgres/data:/var/lib/postgresql/data
+  environment:
+    POSTGRES_PASSWORD: "admin"
+  ports:
+    - "5432:5432"
 ```
 
 from the `docker-compose.yml` file and set the backend environment variables in:
