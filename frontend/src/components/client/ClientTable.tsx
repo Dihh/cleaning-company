@@ -3,19 +3,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
 import React from "react";
 import { Client } from "../../interfaces/Client";
+import { CLientAPI } from "../../api/client";
 
 const ClientTable: React.FC<{ 
   clients: Client[], onRemoveClient: Function , onSelectClient: Function
 }> = ({ clients, onRemoveClient, onSelectClient }) => {
   async function handleRemoveCLient(id: string){
-    const response = await fetch(`http://localhost:3000/clients/${id}`, {
-      method: "DELETE"
-    })
-    if (response.ok) {
-      alert("OK")
-      onRemoveClient()
+    const response = await CLientAPI.deleteCLients(id)
+    if (response) {
+      onRemoveClient('warning', 'Cliente removed successfully')
     } else {
-      alert("error")
+      onRemoveClient('danger', 'Something went wrong')
     }
   }
 

@@ -1,5 +1,6 @@
 import { Button, Card, Form } from "react-bootstrap";
 import { Client } from "../../interfaces/Client";
+import { CLientAPI } from "../../api/client";
 
 const ClientForm: React.FC<{
   onChangeClient: Function, selectedClient: Client | undefined, onCancelEdit: Function
@@ -27,31 +28,21 @@ const ClientForm: React.FC<{
   }
 
   async function createClient(data: any){
-    const response = await fetch(`http://localhost:3000/clients`, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" }
-    })
-    if (response.ok) {
-      alert("OK")
-      onChangeClient()
+    const response = await CLientAPI.createCLient(data)
+    if (response) {
+      onChangeClient('success', 'Cliente created successfully')
     } else {
-      alert("error")
+      onChangeClient('danger', 'Something went wrong')
     }
   }
 
   async function updateClient(data: any, id: string){
-    const response = await fetch(`http://localhost:3000/clients/${id}`, {
-      method: "PATCH",
-      body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" }
-    })
-    if (response.ok) {
-      alert("OK")
-      onChangeClient()
+    const response = await CLientAPI.updateCLient(data, id)
+    if (response) {
+      onChangeClient('info', 'Cliente updated successfully')
       onCancelEdit(undefined)
     } else {
-      alert("error")
+      onChangeClient('danger', 'Something went wrong')
     }
   }
 

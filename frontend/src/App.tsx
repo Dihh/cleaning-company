@@ -1,20 +1,23 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row, Toast, ToastContainer } from 'react-bootstrap';
 import Client from './components/client/Client';
 import ClientForm from './components/client/ClientForm';
 import Route from './components/Route';
 import { Client as ClientInterfacec, SearchClientTerms } from "./interfaces/Client";
 import { CLientAPI } from './api/client'
 import { Metadata } from './interfaces/MetaData';
+import SystemToast from './components/shared/SystemToast';
 
 function App() {
   const [clientsMetadata, setClientsMetadata] = useState(undefined as Metadata<ClientInterfacec> | undefined)
   const [selectedClient, setSelectedClient] = useState(undefined as (ClientInterfacec | undefined))
   const [getClientsKey, setGetClientsKey] = useState(0)
   const [searchTerm, setSearchTerm] = useState(undefined as SearchClientTerms | undefined)
+  const [showToast, setShowToast] = useState({condition: false, type: '', message: ''});
 
-  function handleRefreshGetClient() {
+  function handleRefreshGetClient(type: string, message: string) {
+    setShowToast({condition: true, type, message})
     setGetClientsKey(oldKey => oldKey + 1)
   }
 
@@ -47,6 +50,7 @@ function App() {
 
   return (
     <>
+      <SystemToast setShowToast={setShowToast} showToast={showToast}/>
       <Container fluid className="mt-3 mb-3">
         <Row>
           <Col md="9" bg="secondary">
