@@ -145,7 +145,7 @@ You can run this using `npm run build` command inside a nodejs environment ou in
 
 You can see others tools versions in `package.json`
 
-# Front
+# Frontend
 
 For front infrastructure, vite react was chosen with type script for development. the whole system was developed in a single page and because of this the react-router was no necessary.
 
