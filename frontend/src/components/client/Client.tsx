@@ -8,8 +8,8 @@ import React from "react";
 
 const Client: React.FC<{
   clientsMetadata: Metadata<CLientInterface>, onRemoveClient: Function, onSelectClient: Function,
-  onChangePagination: Function, onSearch: Function
-}> = ({ clientsMetadata, onRemoveClient, onSelectClient, onChangePagination, onSearch }) => {
+  onChangePagination: Function, onSearch: Function, onSortClients: Function, sortCLients: (string | number)[]
+}> = ({ clientsMetadata, onRemoveClient, onSelectClient, onChangePagination, onSearch, onSortClients, sortCLients }) => {
   return (
     <Card>
       <Card.Body>
@@ -17,7 +17,8 @@ const Client: React.FC<{
         <div className="mb-3">
           <Search onSearch={onSearch} />
         </div>
-        <ClientTable clients={clientsMetadata.data} onRemoveClient={onRemoveClient} onSelectClient={onSelectClient} />
+        <ClientTable clients={clientsMetadata.data} onRemoveClient={onRemoveClient} onSelectClient={onSelectClient}
+        onSortClients={onSortClients} sortCLients={sortCLients} />
         <SystemPagination metaData={clientsMetadata} onChangePagination={onChangePagination} />
       </Card.Body>
     </Card>

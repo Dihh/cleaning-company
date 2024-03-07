@@ -16,6 +16,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState(undefined as SearchClientTerms | undefined)
   const [showToast, setShowToast] = useState({condition: false, type: '', message: ''});
   const [getclientsRoutesKey, setclientsRoutesKey] = useState(0)
+  const [sortCLients, setSortCLients] = useState([0,'asc'])
 
   function handleRefreshGetClient(type: string, message: string) {
     setShowToast((oldShowToast) => ({...oldShowToast, condition: true, type, message}))
@@ -31,7 +32,7 @@ function App() {
     getClients(page, searchTerm)
   }
 
-  async function handleSearch(term: string){
+  function handleSearch(term: string){
     let search: SearchClientTerms | undefined
     if(term){
       search = {name: term, email: term}
@@ -39,16 +40,20 @@ function App() {
     setSearchTerm(search)
   }
 
-  async function getClients(page = 1, search: SearchClientTerms | undefined  = undefined ) {
-    const clientsMetadata = await CLientAPI.getCLients(page, search)
+  function handleSortClients(sort: (string | number)[]){
+    setSortCLients(sort)
+  }
+
+  async function getClients(page = 1, search: SearchClientTerms | undefined  = undefined, sortCLients = [1,'desc']) {
+    const clientsMetadata = await CLientAPI.getCLients(page, search, sortCLients)
     if (clientsMetadata) {
       setClientsMetadata(clientsMetadata)
     }
   }
 
   useEffect(() => {
-    getClients(undefined, searchTerm)
-  }, [getClientsKey, searchTerm])
+    getClients(undefined, searchTerm, sortCLients)
+  }, [getClientsKey, searchTerm, sortCLients])
 
   return (
     <>
@@ -61,7 +66,8 @@ function App() {
               <Client clientsMetadata={clientsMetadata} 
               onRemoveClient={handleRefreshGetClient} onSelectClient={handleSelectCLient} 
               onChangePagination={handleClickPagination}
-              onSearch={handleSearch}/>
+              onSearch={handleSearch} onSortClients={handleSortClients}
+              sortCLients={sortCLients} />
             }
           </Col>
           <Col>

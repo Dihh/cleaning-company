@@ -10,7 +10,7 @@ import { Client as ClientInterface } from '../../interfaces/Client'
 test("Client should render table, input search and pagination", async () => {
     const metaData: Metadata<ClientInterface> = ({ pages: 1, page: 1, data: [] })
     const result = render(<Client clientsMetadata={metaData} onChangePagination={() => { }} onRemoveClient={() => { }}
-        onSearch={() => { }} onSelectClient={() => { }}
+        onSearch={() => { }} onSelectClient={() => { }}  onSortClients={() => {}} sortCLients={[]}
     />)
     const table = await testScreen.findByRole('table')
     const searchInput = await result.container.querySelector('#search')

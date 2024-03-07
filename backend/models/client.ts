@@ -33,12 +33,16 @@ export class Client {
         })
     }
 
-    static filterClients(dbClient: DbClients, name = "", email = "", limit = 10, page = 2) {
+    static filterClients(dbClient: DbClients, name = "", email = "", limit = 10, page = 2, sort = 0, desc = false) {
+        const order = [
+            'name',
+            'email',
+        ]
         return new Promise(async (resolve, reject) => {
             try {
                 const query = `SELECT * FROM ${this.tableName} WHERE NAME LIKE $1 OR EMAIL LIKE $2`
                 const result = await dbClient.query(
-                    `${query} ORDER BY name ASC LIMIT $3 OFFSET $4`,
+                    `${query} ORDER BY ${order[sort] || 'name'} ${desc ? "DESC" : "ASC"} LIMIT $3 OFFSET $4`,
                     [`%${name || ""}%`, `%${email || ""}%`, limit, limit * (page - 1)]
                 )
                 const clients = result.rows.map((client) => new Client(

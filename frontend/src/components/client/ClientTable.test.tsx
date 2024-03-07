@@ -16,7 +16,7 @@ const CLIENTS: Client[] = [
 
 test("ClientTable should render table", async () => {
     const result = render(<ClientTable clients={CLIENTS} onRemoveClient={() => { }}
-        onSelectClient={() => { }}
+        onSelectClient={() => { }} onSortClients={() => { }} sortCLients={[]}
     />)
     const table = await result.container.querySelector('table')
 
@@ -25,7 +25,7 @@ test("ClientTable should render table", async () => {
 
 test("ClientTable should render clients", async () => {
     const result = render(<ClientTable clients={CLIENTS} onRemoveClient={() => { }}
-        onSelectClient={() => { }}
+        onSelectClient={() => { }} onSortClients={() => { }} sortCLients={[]}
     />)
     const rows = await result.container.querySelectorAll('tbody tr')
     expect(rows).toHaveLength(CLIENTS.length)
@@ -34,7 +34,7 @@ test("ClientTable should render clients", async () => {
 test("ClientTable line clients should have data", async () => {
     const onRemoveClient = jest.fn()
     render(<ClientTable clients={CLIENTS} onRemoveClient={onRemoveClient}
-        onSelectClient={() => { }}
+        onSelectClient={() => { }} onSortClients={() => { }} sortCLients={[]}
     />)
     const name = await testScreen.findByText(CLIENTS[0].name)
     const email = await testScreen.findByText(CLIENTS[0].email)
@@ -54,10 +54,10 @@ test("ClientTable should call onRemoveClient function when remove button have be
     })
     const onRemoveClient = jest.fn()
     const result = render(<ClientTable clients={CLIENTS} onRemoveClient={onRemoveClient}
-        onSelectClient={() => { }}
+        onSelectClient={() => { }} onSortClients={() => { }} sortCLients={[]}
     />)
     const removeButton = await result.container.querySelector('svg[data-icon="trash"]')
-    if(removeButton){
+    if (removeButton) {
         fireEvent.click(removeButton)
     }
     await waitFor(() => expect(onRemoveClient).toHaveBeenCalledTimes(1))
@@ -71,12 +71,45 @@ test("ClientTable should call onSelectClient function when edit button have been
         json: async () => ([])
     })
     const onSelectClient = jest.fn()
-    const result = render(<ClientTable clients={CLIENTS} onRemoveClient={() => {}}
-        onSelectClient={onSelectClient}
+    const result = render(<ClientTable clients={CLIENTS} onRemoveClient={() => { }}
+        onSelectClient={onSelectClient} onSortClients={() => { }} sortCLients={[]}
     />)
     const removeButton = await result.container.querySelector('svg[data-icon="pen-to-square"')
-    if(removeButton){
+    if (removeButton) {
         fireEvent.click(removeButton)
     }
     await waitFor(() => expect(onSelectClient).toHaveBeenCalledTimes(1))
+})
+
+
+test("ClientTable should have button sort-name-desc when receive ordenation by name desc", async () => {
+    render(<ClientTable clients={CLIENTS} onRemoveClient={() => { }}
+        onSelectClient={() => { }} onSortClients={() => { }} sortCLients={[0, 'desc']}
+    />)
+    const sortButton = await testScreen.findByTitle('sort-name-desc')
+    expect(sortButton).toBeInTheDocument()
+})
+
+test("ClientTable should have button sort-name-desc when receive ordenation by name asc", async () => {
+    render(<ClientTable clients={CLIENTS} onRemoveClient={() => { }}
+        onSelectClient={() => { }} onSortClients={() => { }} sortCLients={[0, 'asc']}
+    />)
+    const sortButton = await testScreen.findByTitle('sort-name-asc')
+    expect(sortButton).toBeInTheDocument()
+})
+
+test("ClientTable should have button sort-name-desc when receive ordenation by email desc", async () => {
+    render(<ClientTable clients={CLIENTS} onRemoveClient={() => { }}
+        onSelectClient={() => { }} onSortClients={() => { }} sortCLients={[1, 'desc']}
+    />)
+    const sortButton = await testScreen.findByTitle('sort-email-desc')
+    expect(sortButton).toBeInTheDocument()
+})
+
+test("ClientTable should have button sort-name-desc when receive ordenation by email asc", async () => {
+    render(<ClientTable clients={CLIENTS} onRemoveClient={() => { }}
+        onSelectClient={() => { }} onSortClients={() => { }} sortCLients={[1, 'asc']}
+    />)
+    const sortButton = await testScreen.findByTitle('sort-email-asc')
+    expect(sortButton).toBeInTheDocument()
 })

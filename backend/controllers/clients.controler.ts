@@ -20,10 +20,15 @@ export class ClientsController extends Controller {
 
   getClients() {
     this.app.get(`/${this.table}`, async (req: Request, res: Response) => {
-      const query = req.query as { name: string, email: string, page: string }
+      const query = req.query as { name: string, email: string, page: string, sort: string, orientation: string }
       const page = query.page ? parseInt(query.page) : 1
+      const sort = query.sort ? parseInt(query.sort) : 0
+      const orientation = query.orientation == "desc" ? true : false
+      
       try {
-        const clients = await Client.filterClients(this.dbClient, query.name, query.email, undefined, page)
+        const clients = await Client.filterClients(
+          this.dbClient, query.name, query.email, undefined, page, sort, orientation
+          )
         res.json(clients);
       } catch (err: any) {
         this.handleErrors(err, res)
