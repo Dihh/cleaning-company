@@ -36,12 +36,14 @@ const ClientTable: React.FC<{
         {clients.map(client => <tr key={client.id}>
           <td>{client.name}</td>
           <td>{client.email}</td>
-          <td>{client.coordinates.join(',')}</td>
+          <td>{client.coordinates.join(',')}<span className="test"></span></td>
           <td>
-            <FontAwesomeIcon icon={faPenToSquare} className='me-2' role="button" 
-            onClick={() => handleUpdateCLient(client)} />
-            <FontAwesomeIcon icon={faTrash} role="button" 
-            onClick={() => handleRemoveCLient(client.id || "")} />
+            <span onClick={() => handleUpdateCLient(client)} className='me-2' role="button" title="edit">
+              <FontAwesomeIcon icon={faPenToSquare}  />
+            </span>
+            <span role="button" onClick={() => handleRemoveCLient(client.id || "")} title="delete">
+              <FontAwesomeIcon icon={faTrash} />
+            </span>
           </td>
         </tr>)}
       </tbody>

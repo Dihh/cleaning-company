@@ -20,6 +20,7 @@ const Search: React.FC<{onSearch: Function}> = ({onSearch}) => {
           type="text"
           placeholder="Type a name or email"
           onChange={handleSeach}
+          data-testid="search"
         />
       </InputGroup>
     </Form.Group>

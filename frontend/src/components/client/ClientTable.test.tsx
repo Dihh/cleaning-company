@@ -56,7 +56,7 @@ test("ClientTable should call onRemoveClient function when remove button have be
     const result = render(<ClientTable clients={CLIENTS} onRemoveClient={onRemoveClient}
         onSelectClient={() => { }}
     />)
-    const removeButton = await result.container.querySelector('svg[data-icon="trash"')
+    const removeButton = await result.container.querySelector('svg[data-icon="trash"]')
     if(removeButton){
         fireEvent.click(removeButton)
     }
