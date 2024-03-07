@@ -49,7 +49,7 @@ const ClientForm: React.FC<{
 
   const cardTitle = !selectedClient ? <Card.Title>Add new client</Card.Title> : <Card.Title>Edit client</Card.Title>
   return (
-    <Card>
+    <Card className="mt-3 mt-md-0">
       <Card.Body>
         <Card.Title>{cardTitle}</Card.Title>
         <Form onSubmit={handleSubmit}>
