@@ -32,7 +32,7 @@ const ClientTable: React.FC<{
         </tr>
       </thead>
       <tbody>
-        {clients.map(client => <tr>
+        {clients.map(client => <tr key={client.id}>
           <td>{client.name}</td>
           <td>{client.email}</td>
           <td>{client.coordinates.join(',')}</td>

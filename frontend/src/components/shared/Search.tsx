@@ -14,7 +14,7 @@ const Search: React.FC<{onSearch: Function}> = ({onSearch}) => {
   return (
     <Form.Group as={Col} md={{ span: 5, offset: 7 }} controlId="validationCustomUsername">
       <InputGroup>
-        <InputGroup.Text id="inputGroupPrepend"><FontAwesomeIcon icon={faSearch} /></InputGroup.Text>
+        <InputGroup.Text id="search"><FontAwesomeIcon icon={faSearch} /></InputGroup.Text>
         <Form.Control
           type="text"
           placeholder="Type a name or email"
