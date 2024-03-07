@@ -35,14 +35,14 @@ If you need to use a different database with difderents settings you can remove:
 
 ```yaml
 postgres:
-  image: postgres
-  volumes:
-    - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
-    - ./postgres/data:/var/lib/postgresql/data
-  environment:
-    POSTGRES_PASSWORD: "admin"
-  ports:
-    - "5432:5432"
+    image: postgres
+    volumes:
+        - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+        - ./postgres/data:/var/lib/postgresql/data
+    environment:
+        POSTGRES_PASSWORD: "admin"
+    ports:
+        - "5432:5432"
 ```
 
 from the `docker-compose.yml` file and set the backend environment variables in:
