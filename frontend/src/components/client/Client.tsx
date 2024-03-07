@@ -13,9 +13,11 @@ const Client: React.FC<{
     <Card>
       <Card.Body>
         <Card.Title>Clients</Card.Title>
-        <Search onSearch={onSearch}/>
+        <div className="mb-3">
+          <Search onSearch={onSearch} />
+        </div>
         <ClientTable clients={clientsMetadata.data} onRemoveClient={onRemoveClient} onSelectClient={onSelectClient} />
-        <SystemPagination metaData={clientsMetadata} onChangePagination={onChangePagination}/>
+        <SystemPagination metaData={clientsMetadata} onChangePagination={onChangePagination} />
       </Card.Body>
     </Card>
   )

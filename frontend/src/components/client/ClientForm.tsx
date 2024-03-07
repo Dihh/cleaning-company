@@ -72,7 +72,7 @@ const ClientForm: React.FC<{
             <Form.Control type="number" placeholder="0" name="positionY" required
               defaultValue={selectedClient ? selectedClient.coordinates[1] : ""} />
           </Form.Group>
-          <Button type="submit">Submit form</Button>
+          <Button type="submit" variant="dark">Submit form</Button>
           {selectedClient &&
             <Button type="button" variant="warning" className="ms-3" onClick={() => onCancelEdit(undefined)}>Cancel</Button>
           }

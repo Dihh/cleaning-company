@@ -8,6 +8,7 @@ import { CLientAPI } from "../../api/client";
 const ClientTable: React.FC<{ 
   clients: Client[], onRemoveClient: Function , onSelectClient: Function
 }> = ({ clients, onRemoveClient, onSelectClient }) => {
+  
   async function handleRemoveCLient(id: string){
     const response = await CLientAPI.deleteCLients(id)
     if (response) {
@@ -22,13 +23,13 @@ const ClientTable: React.FC<{
   }
 
   return (
-    <Table striped hover>
+    <Table striped hover variant="dark">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Coordinates</th>
-          <th style={{ width: "5rem" }}></th>
+          <th role="button" >Name</th>
+          <th role="button" >Email</th>
+          <th role="button" >Coordinates</th>
+          <th role="button"  style={{ width: "5rem" }}></th>
         </tr>
       </thead>
       <tbody>

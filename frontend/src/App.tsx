@@ -3,7 +3,7 @@ import './App.css'
 import { Col, Container, Row } from 'react-bootstrap';
 import Client from './components/client/Client';
 import ClientForm from './components/client/ClientForm';
-import Route from './components/Route';
+import Route from './components/routes/Routes';
 import { Client as ClientInterfacec, SearchClientTerms } from "./interfaces/Client";
 import { CLientAPI } from './api/client'
 import { Metadata } from './interfaces/MetaData';
@@ -17,7 +17,7 @@ function App() {
   const [showToast, setShowToast] = useState({condition: false, type: '', message: ''});
 
   function handleRefreshGetClient(type: string, message: string) {
-    setShowToast({condition: true, type, message})
+    setShowToast((oldShowToast) => ({...oldShowToast, condition: true, type, message}))
     setGetClientsKey(oldKey => oldKey + 1)
   }
 
