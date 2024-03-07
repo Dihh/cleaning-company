@@ -54,22 +54,22 @@ const ClientForm: React.FC<{
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Name:</Form.Label>
-            <Form.Control type="text" placeholder="name" name="name"
+            <Form.Control type="text" placeholder="name" name="name" required
               defaultValue={selectedClient ? selectedClient.name : ""} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Email:</Form.Label>
-            <Form.Control type="email" placeholder="name@example.com" name="email"
+            <Form.Control type="email" placeholder="name@example.com" name="email" required
               defaultValue={selectedClient ? selectedClient.email : ""} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Position X:</Form.Label>
-            <Form.Control type="number" placeholder="0" name="positionX"
+            <Form.Control type="number" placeholder="0" name="positionX" required
               defaultValue={selectedClient ? selectedClient.coordinates[0] : ""} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Position Y:</Form.Label>
-            <Form.Control type="number" placeholder="0" name="positionY"
+            <Form.Control type="number" placeholder="0" name="positionY" required
               defaultValue={selectedClient ? selectedClient.coordinates[1] : ""} />
           </Form.Group>
           <Button type="submit">Submit form</Button>

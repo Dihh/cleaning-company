@@ -90,6 +90,7 @@ export class Client {
             const fieldError = this.validateField(['name', 'email', 'coordinates'])
             if (fieldError) {
                 reject(fieldError)
+                return
             }
             try {
                 const result = await dbClient.query(query, values)
