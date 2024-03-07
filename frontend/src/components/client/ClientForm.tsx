@@ -11,10 +11,17 @@ const ClientForm: React.FC<{
     const target = event.target as HTMLFormElement
     const formData = new FormData(target)
     const data = Object.fromEntries(formData.entries())
+    const client: Client = {
+      name: data.name.toString(),
+      email: data.email.toString(),
+      coordinates: [parseInt(data.positionX.toString()), parseInt(data.positionY.toString())]
+    }
     if(selectedClient){
-      await updateClient(data, selectedClient.id)
+      if(selectedClient.id){
+        await updateClient(client, selectedClient.id)
+      }
     }else {
-      await createClient(data)
+      await createClient(client)
     }
     target.reset()
   }
@@ -63,6 +70,16 @@ const ClientForm: React.FC<{
             <Form.Label>Email:</Form.Label>
             <Form.Control type="email" placeholder="name@example.com" name="email"
               defaultValue={selectedClient ? selectedClient.email : ""} />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Label>Position X:</Form.Label>
+            <Form.Control type="number" placeholder="0" name="positionX"
+              defaultValue={selectedClient ? selectedClient.coordinates[0] : ""} />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Label>Position Y:</Form.Label>
+            <Form.Control type="number" placeholder="0" name="positionY"
+              defaultValue={selectedClient ? selectedClient.coordinates[1] : ""} />
           </Form.Group>
           <Button type="submit">Submit form</Button>
           {selectedClient &&

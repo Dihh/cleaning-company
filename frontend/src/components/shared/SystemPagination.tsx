@@ -1,19 +1,31 @@
 import { Pagination } from "react-bootstrap";
+import { Metadata } from "../../interfaces/MetaData";
 
-export default function () {
-  let active = 2;
-  let items = [];
-  for (let number = 1; number <= 5; number++) {
-    items.push(
-      <Pagination.Item key={number} active={number === active}>
-        {number}
-      </Pagination.Item>,
-    );
+const SystemPagination: React.FC<{
+  metaData: Metadata<any>, onChangePagination: Function
+}> = ({metaData, onChangePagination}) => {
+  const maxPage = metaData.pages
+  const active = metaData.page;
+  let offset = 1
+  if(active == 1){
+    offset = 0
+  }else if (active == maxPage){
+    offset = 2
   }
-  
+  const pages = Array.from({ length: 3 }, (_, i) => i + active - offset);
+  const items = pages.map((page) =>
+    page > 0 && page <= maxPage
+      ? <Pagination.Item key={page} active={page === active} onClick={() => onChangePagination(page)}>
+        {page}
+      </Pagination.Item>
+      : null
+  )
+
   return (
     <div className='d-flex flex-row-reverse'>
       <Pagination>{items}</Pagination>
     </div>
   )
 }
+
+export default SystemPagination

@@ -29,6 +29,7 @@ const ClientTable: React.FC<{
         <tr>
           <th>Name</th>
           <th>Email</th>
+          <th>Coordinates</th>
           <th style={{ width: "5rem" }}></th>
         </tr>
       </thead>
@@ -36,11 +37,12 @@ const ClientTable: React.FC<{
         {clients.map(client => <tr>
           <td>{client.name}</td>
           <td>{client.email}</td>
+          <td>{client.coordinates.join(',')}</td>
           <td>
             <FontAwesomeIcon icon={faPenToSquare} className='me-2' role="button" 
             onClick={() => handleUpdateCLient(client)} />
             <FontAwesomeIcon icon={faTrash} role="button" 
-            onClick={() => handleRemoveCLient(client.id)} />
+            onClick={() => handleRemoveCLient(client.id || "")} />
           </td>
         </tr>)}
       </tbody>
