@@ -6,28 +6,28 @@ const supertest = require('supertest');
 const requestWithSupertest = supertest(server);
 
 const client = new Client({
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    host: process.env.DB_HOST,
-    port: (process.env.DB_PORT || 5432) as number,
-    database: process.env.DB_DATABASE,
-  });
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  host: process.env.DB_HOST,
+  port: (process.env.DB_PORT || 5432) as number,
+  database: process.env.DB_DATABASE,
+});
 
-function setupDatabase(){
-    return new Promise((resolve, reject) => {
-          client.connect()
-            .then(async () => {
-              console.log('Connected to PostgreSQL database');
-              await client.query(`DELETE FROM clients`)
-              resolve(true)
-            })
-    })
+function setupDatabase() {
+  return new Promise((resolve) => {
+    client.connect()
+      .then(async () => {
+        console.log('Connected to PostgreSQL database');
+        await client.query(`DELETE FROM clients`)
+        resolve(true)
+      })
+  })
 }
 
-function resetDatabase(){
-  return new Promise(async (resolve, reject) => {
-        await client.query(`DELETE FROM clients `)
-        resolve(true)
+function resetDatabase() {
+  return new Promise(async (resolve) => {
+    await client.query(`DELETE FROM clients `)
+    resolve(true)
   })
 }
 

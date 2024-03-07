@@ -213,16 +213,12 @@ export function clientsTests(requestWithSupertest: any) {
         });
 
         it('GET /client/calculate-routes should calculate the best route over all clients ', async () => {
-            // const [client1, client2, client3, client4]: Client[] = await Promise.all([
-            //     (await insertCLient({ ...DEFAULT_CLIENT_DATA, coordinates: [1, 1] })).body,
-            //     (await insertCLient({ ...DEFAULT_CLIENT_DATA, coordinates: [-1, -2] })).body,
-            //     (await insertCLient({ ...DEFAULT_CLIENT_DATA, coordinates: [2, 2] })).body,
-            //     (await insertCLient({ ...DEFAULT_CLIENT_DATA, coordinates: [5, 5] })).body
-            // ])
-            const client1 = (await insertCLient({ ...DEFAULT_CLIENT_DATA, coordinates: [1, 1] })).body
-            const client2 = (await insertCLient({ ...DEFAULT_CLIENT_DATA, coordinates: [-1, -2] })).body
-            const client3 = (await insertCLient({ ...DEFAULT_CLIENT_DATA, coordinates: [2, 2] })).body
-            const client4 = (await insertCLient({ ...DEFAULT_CLIENT_DATA, coordinates: [5, 5] })).body
+            const [client1, client2, client3, client4]: Client[] = await Promise.all([
+                (await insertCLient({ ...DEFAULT_CLIENT_DATA, coordinates: [1, 1] })).body,
+                (await insertCLient({ ...DEFAULT_CLIENT_DATA, coordinates: [-1, -2] })).body,
+                (await insertCLient({ ...DEFAULT_CLIENT_DATA, coordinates: [2, 2] })).body,
+                (await insertCLient({ ...DEFAULT_CLIENT_DATA, coordinates: [5, 5] })).body
+            ])
             const res = await requestWithSupertest.get(`/clients/calculate-routes`)
             const routesIds = res.body.map((client: Client) => client.id)
             const expectRoutesId = [client1.id, client3.id, client4.id, client2.id, '']
@@ -242,7 +238,7 @@ export function clientsTests(requestWithSupertest: any) {
         });
 
         it('GET /client should paginate', async () => {
-            await Promise.all(Array.from(Array(11)).map(async (x, i) => {
+            await Promise.all(Array.from(Array(11)).map(async () => {
                 await insertCLient(DEFAULT_CLIENT_DATA)
             }))
             const res = await requestWithSupertest.get('/clients?page=2');
