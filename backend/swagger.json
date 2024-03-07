@@ -19,6 +19,24 @@
         "tags": [
           "client"
         ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "filter clients by name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "email",
+            "in": "path",
+            "description": "filter clients by name",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "summary": "Get all clients",
         "operationId": "getClients",
         "responses": {
@@ -27,10 +45,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Client"
-                  }
+                  "$ref": "#/components/schemas/ClientMetadata"
                 }
               }
             }
@@ -194,6 +209,30 @@
           }
         }
       }
+    },
+    "/clients/calculate-routes": {
+      "get": {
+        "tags": [
+          "client"
+        ],
+        "summary": "Get clients routes",
+        "operationId": "getClientRoutes",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something went wrong"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -213,6 +252,16 @@
           "email": {
             "type": "string",
             "example": "diegton@gmail.com"
+          },
+          "coordinates": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "example": [
+              1,
+              2
+            ]
           }
         }
       },
@@ -226,6 +275,35 @@
           "email": {
             "type": "string",
             "example": "diegton@gmail.com"
+          },
+          "coordinates": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "example": [
+              1,
+              2
+            ]
+          }
+        }
+      },
+      "ClientMetadata": {
+        "type": "object",
+        "properties": {
+          "pages": {
+            "type": "integer",
+            "example": 3
+          },
+          "page": {
+            "type": "integer",
+            "example": 1
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Client"
+            }
           }
         }
       }
