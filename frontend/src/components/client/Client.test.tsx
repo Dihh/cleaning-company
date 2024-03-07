@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom'
-import { screen } from '@testing-library/react'
+import { screen as testScreen } from '@testing-library/react'
 
 import { render } from "@testing-library/react"
 import Client from "./Client"
@@ -12,7 +12,7 @@ test("Client should render table, input search and pagination", async () => {
     const result = render(<Client clientsMetadata={metaData} onChangePagination={() => { }} onRemoveClient={() => { }}
         onSearch={() => { }} onSelectClient={() => { }}
     />)
-    const table = await screen.findByRole('table')
+    const table = await testScreen.findByRole('table')
     const searchInput = await result.container.querySelector('#search')
     const pagination = await result.container.querySelector('.pagination')
 

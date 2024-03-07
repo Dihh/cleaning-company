@@ -1,6 +1,7 @@
 import { Button, Card, Form } from "react-bootstrap";
 import { Client } from "../../interfaces/Client";
 import { CLientAPI } from "../../api/client";
+import React from "react";
 
 const ClientForm: React.FC<{
   onChangeClient: Function, selectedClient: Client | undefined, onCancelEdit: Function

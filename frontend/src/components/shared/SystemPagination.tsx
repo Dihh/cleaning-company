@@ -1,5 +1,6 @@
 import { Pagination } from "react-bootstrap";
 import { Metadata } from "../../interfaces/MetaData";
+import React from "react";
 
 const SystemPagination: React.FC<{
   metaData: Metadata<any>, onChangePagination: Function

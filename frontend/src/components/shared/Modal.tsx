@@ -1,4 +1,5 @@
 import { Button, Modal } from "react-bootstrap";
+import React from "react";
 
 const SystemModal: React.FC<{
   children: any, title: string, showModal: boolean, setShowModal: Function

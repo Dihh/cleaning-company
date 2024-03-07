@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom'
-import { screen } from '@testing-library/react'
+import { screen as testScreen } from '@testing-library/react'
 
 import { render } from "@testing-library/react"
 import App from "./App"
@@ -13,9 +13,9 @@ test("main page should render cards", async () => {
         json: async () => ({pages: 1, page: 1, data: []})
     })
     render(<App />)
-    const clientsCard = await screen.findByText('Clients')
-    const clientFormsCard = await screen.findByText('Add new client')
-    const routesCard = await screen.findByText('Routes')
+    const clientsCard = await testScreen.findByText('Clients')
+    const clientFormsCard = await testScreen.findByText('Add new client')
+    const routesCard = await testScreen.findByText('Routes')
     
     expect(clientsCard).toBeInTheDocument();
     expect(clientFormsCard).toBeInTheDocument();

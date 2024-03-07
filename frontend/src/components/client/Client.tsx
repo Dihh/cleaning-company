@@ -4,6 +4,7 @@ import Search from "../shared/Search";
 import SystemPagination from "../shared/SystemPagination";
 import { Client as CLientInterface } from "../../interfaces/Client";
 import { Metadata } from "../../interfaces/MetaData";
+import React from "react";
 
 const Client: React.FC<{
   clientsMetadata: Metadata<CLientInterface>, onRemoveClient: Function, onSelectClient: Function,

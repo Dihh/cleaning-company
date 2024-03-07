@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom'
-import { screen, fireEvent, waitFor } from '@testing-library/react'
+import { screen as testScreen, fireEvent, waitFor } from '@testing-library/react'
 
 import { render } from "@testing-library/react"
 import ClientTable from "./ClientTable"
@@ -36,9 +36,9 @@ test("ClientTable line clients should have data", async () => {
     render(<ClientTable clients={CLIENTS} onRemoveClient={onRemoveClient}
         onSelectClient={() => { }}
     />)
-    const name = await screen.findByText(CLIENTS[0].name)
-    const email = await screen.findByText(CLIENTS[0].email)
-    const coordinates = await screen.findByText(CLIENTS[0].coordinates.join(','))
+    const name = await testScreen.findByText(CLIENTS[0].name)
+    const email = await testScreen.findByText(CLIENTS[0].email)
+    const coordinates = await testScreen.findByText(CLIENTS[0].coordinates.join(','))
 
     expect(name).toBeInTheDocument()
     expect(email).toBeInTheDocument()

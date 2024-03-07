@@ -15,10 +15,12 @@ function App() {
   const [getClientsKey, setGetClientsKey] = useState(0)
   const [searchTerm, setSearchTerm] = useState(undefined as SearchClientTerms | undefined)
   const [showToast, setShowToast] = useState({condition: false, type: '', message: ''});
+  const [getclientsRoutesKey, setclientsRoutesKey] = useState(0)
 
   function handleRefreshGetClient(type: string, message: string) {
     setShowToast((oldShowToast) => ({...oldShowToast, condition: true, type, message}))
     setGetClientsKey(oldKey => oldKey + 1)
+    setclientsRoutesKey(oldKey => oldKey + 1)
   }
 
   function handleSelectCLient(client: ClientInterfacec) {
@@ -71,7 +73,7 @@ function App() {
             </Row>
             <Row className="mt-3">
               <Col>
-                <Route />
+                <Route getclientsRoutesKey={getclientsRoutesKey} setclientsRoutesKey={setclientsRoutesKey} />
               </Col>
             </Row>
           </Col>

@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
+import { Dispatch, useEffect, useState } from "react";
 import { Button, Card, ListGroup } from "react-bootstrap";
 import { CLientAPI } from "../../api/client";
 import { Client } from "../../interfaces/Client";
 import SystemModal from "../shared/Modal";
+import React from "react";
 
-const Routes: React.FC<{}> = () => {
+const Routes: React.FC<{ getclientsRoutesKey: number, setclientsRoutesKey: Dispatch<React.SetStateAction<number>> }> = ({ getclientsRoutesKey, setclientsRoutesKey }) => {
   const [showModal, setShowModal] = useState(false);
   const [clientsRoutes, setClientsRoutes] = useState([] as Client[])
-  const [getclientsRoutesKey, setclientsRoutesKey] = useState(0)
 
   useEffect(() => {
     async function getClients() {

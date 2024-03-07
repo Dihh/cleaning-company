@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom'
-import { screen, fireEvent } from '@testing-library/react'
+import { screen as testScreen, fireEvent } from '@testing-library/react'
 
 import { render } from "@testing-library/react"
 import SystemToast from "./SystemToast"
@@ -20,7 +20,7 @@ test("Search should render toast if showToast condition is true", async () => {
 
 test("Search should render toast message if showToast messa exists", async () => {
     render(<SystemToast setShowToast={() => {}} showToast={{ condition: true, message: "test" }} />)
-    const messageElement = await screen.findByText('test')
+    const messageElement = await testScreen.findByText('test')
 
     expect(messageElement).toBeInTheDocument();
 })
