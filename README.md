@@ -23,6 +23,9 @@ There are three differents way to run this project: Docker Compose, Docker and l
 
 The communication between backend and database will use environment variables and depending on chosen way to run this project you will need to set this variables.
 
+## Tolls versions
+- Docker version 25.0.2
+
 ## Docker Compose
 
 You can easily run this project with `docker compose`, just clone this project go to the project folder and run:
@@ -134,6 +137,8 @@ docker compose -f docker-compose-test.yml up backend
 
 It will use the database `test` to run the tests, the database will be cleared before each executions
 
+The test coverage is almost 90% and can be verified bellow:
+
 ![alt text](https://github.com/Dihh/cleaning-company/blob/main/documentation/backend-test-coverage.png)
 
 ## Lint
@@ -141,8 +146,6 @@ It will use the database `test` to run the tests, the database will be cleared b
 The lint configuration will ensure code quality.
 
 You can run this using `npm run lint`  command inside a nodejs environment ou inside the container.
-
-The test coverage is almost 90% and can be verified bellow:
 
 ## Build
 
