@@ -2,6 +2,8 @@
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/Fa9E1uLNJc8/0.jpg)](https://www.youtube.com/watch?v=Fa9E1uLNJc8)
 
+# [For live preview click here](https://dihh.github.io/cleaning-company/)
+
 This system was developed to be used as a cleaning company's client management and routes calculator, so... lets see how it works:
 
 We'll use a postgres database that will be connected by a nodejs(express) backend that will be consumed by a react frontend.
