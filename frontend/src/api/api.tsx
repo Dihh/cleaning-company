@@ -1,3 +1,3 @@
 export class API{
-    static API = `http://localhost:3000`
+    static API = `https://cleaning-company-jinc6jghnq-uc.a.run.app`
 }
