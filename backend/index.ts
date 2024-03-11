@@ -13,7 +13,7 @@ const app: Express = express();
 app.use(express.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(cors());
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 const client = new Client({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
