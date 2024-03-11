@@ -1,20 +1,23 @@
-import { Dispatch, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button, Card, ListGroup } from "react-bootstrap";
-import { CLientAPI } from "../../api/client";
+import { ClientAPI } from "../../api/client";
 import { Client } from "../../interfaces/Client";
 import SystemModal from "../shared/Modal";
 import React from "react";
+import { ClientContext } from "../../store/client-context";
 
-const Routes: React.FC<{ getclientsRoutesKey: number, setclientsRoutesKey: Dispatch<React.SetStateAction<number>> }> = ({ getclientsRoutesKey, setclientsRoutesKey }) => {
+type props = {}
+const Routes: React.FC<props> = () => {
   const [showModal, setShowModal] = useState(false);
   const [clientsRoutes, setClientsRoutes] = useState([] as Client[])
+  const { getclientsRoutesKey, setclientsRoutesKey } = useContext(ClientContext)
 
   useEffect(() => {
     async function getClients() {
       if (getclientsRoutesKey == 0) {
         return
       }
-      const clientsRoutes = await CLientAPI.getCLientsRoutes()
+      const clientsRoutes = await ClientAPI.getCLientsRoutes()
       if (clientsRoutes) {
         setClientsRoutes(clientsRoutes)
       }
@@ -24,7 +27,7 @@ const Routes: React.FC<{ getclientsRoutesKey: number, setclientsRoutesKey: Dispa
 
   const handleShow = () => {
     if (getclientsRoutesKey == 0) {
-      setclientsRoutesKey(oldvalue => oldvalue + 1)
+      setclientsRoutesKey((oldvalue: number) => oldvalue + 1)
     }
     setShowModal(true);
   }
@@ -43,6 +46,7 @@ const Routes: React.FC<{ getclientsRoutesKey: number, setclientsRoutesKey: Dispa
               {clientsRoutes.map(clientsRoute => <ListGroup.Item
                 as="li"
                 className="d-flex justify-content-between align-items-start"
+                key={clientsRoute.id}
               >
                 <div className="ms-2 me-auto">
                   <div className="fw-bold">{clientsRoute.name}</div>

@@ -1,10 +1,16 @@
-import React from 'react';
-import { Dispatch } from "react"
+import React, { useContext } from 'react';
 import { ToastContainer, Toast } from "react-bootstrap"
+import { ToastContext } from '../../store/toast-context';
 
-const SystemToast: React.FC<{setShowToast: Dispatch<any>, showToast: any}> = ({setShowToast, showToast}) => {
+type props = {
 
-    return (<ToastContainer position="top-end" className="p-3" style={{ zIndex: 1 }}>
+}
+const SystemToast: React.FC<props> = () => {
+    const { setShowToast, showToast } = useContext(ToastContext)
+    
+    return (
+        // <></>
+    <ToastContainer position="top-end" className="p-3" style={{ zIndex: 1 }}>
         <Toast onClose={() => setShowToast({ condition: false, type: '', message: '' })} show={showToast.condition} delay={3000} autohide bg={showToast.type}>
             <Toast.Header>
                 <img
@@ -15,7 +21,8 @@ const SystemToast: React.FC<{setShowToast: Dispatch<any>, showToast: any}> = ({s
                 <strong className="me-auto">{showToast.message}</strong>
             </Toast.Header>
         </Toast>
-    </ToastContainer>)
+    </ToastContainer>
+    )
 }
 
 export default SystemToast

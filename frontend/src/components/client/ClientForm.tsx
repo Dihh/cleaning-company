@@ -1,11 +1,11 @@
 import { Button, Card, Form } from "react-bootstrap";
 import { Client } from "../../interfaces/Client";
-import { CLientAPI } from "../../api/client";
-import React from "react";
+import React, { useContext } from "react";
+import { ClientContext } from "../../store/client-context";
 
-const ClientForm: React.FC<{
-  onChangeClient: Function, selectedClient: Client | undefined, onCancelEdit: Function
-}> = ({ onChangeClient, selectedClient, onCancelEdit }) => {
+type props = {}
+const ClientForm: React.FC<props> = () => {
+  const { updateClient, createClient, select, selectedClient } = useContext(ClientContext)
 
   async function handleSubmit(event: any) {
 
@@ -18,33 +18,14 @@ const ClientForm: React.FC<{
       email: data.email.toString(),
       coordinates: [parseInt(data.positionX.toString()), parseInt(data.positionY.toString())]
     }
-    if(selectedClient){
-      if(selectedClient.id){
+    if (selectedClient) {
+      if (selectedClient.id) {
         await updateClient(client, selectedClient.id)
       }
-    }else {
+    } else {
       await createClient(client)
     }
     target.reset()
-  }
-
-  async function createClient(data: any){
-    const response = await CLientAPI.createCLient(data)
-    if (response) {
-      onChangeClient('success', 'Cliente created successfully')
-    } else {
-      onChangeClient('danger', 'Something went wrong')
-    }
-  }
-
-  async function updateClient(data: any, id: string){
-    const response = await CLientAPI.updateCLient(data, id)
-    if (response) {
-      onChangeClient('info', 'Cliente updated successfully')
-      onCancelEdit(undefined)
-    } else {
-      onChangeClient('danger', 'Something went wrong')
-    }
   }
 
   const cardTitle = !selectedClient ? <Card.Title>Add new client</Card.Title> : <Card.Title>Edit client</Card.Title>
@@ -75,7 +56,7 @@ const ClientForm: React.FC<{
           </Form.Group>
           <Button type="submit" variant="dark">Submit form</Button>
           {selectedClient &&
-            <Button type="button" variant="warning" className="ms-3" onClick={() => onCancelEdit(undefined)}>Cancel</Button>
+            <Button type="button" variant="warning" className="ms-3" onClick={() => select(undefined)}>Cancel</Button>
           }
 
         </Form>

@@ -4,6 +4,7 @@ import { screen as testScreen, fireEvent, waitFor } from '@testing-library/react
 import { render } from "@testing-library/react"
 import ClientTable from "./ClientTable"
 import { Client } from '../../interfaces/Client'
+import { ClientContext, ClientContextValue } from '../../store/client-context'
 
 const CLIENTS: Client[] = [
     {
@@ -15,27 +16,20 @@ const CLIENTS: Client[] = [
 ]
 
 test("ClientTable should render table", async () => {
-    const result = render(<ClientTable clients={CLIENTS} onRemoveClient={() => { }}
-        onSelectClient={() => { }} onSortClients={() => { }} sortCLients={[]}
-    />)
+    const result = render(<ClientTable clients={CLIENTS} />)
     const table = await result.container.querySelector('table')
 
     expect(table).toBeInTheDocument();
 })
 
 test("ClientTable should render clients", async () => {
-    const result = render(<ClientTable clients={CLIENTS} onRemoveClient={() => { }}
-        onSelectClient={() => { }} onSortClients={() => { }} sortCLients={[]}
-    />)
+    const result = render(<ClientTable clients={CLIENTS} />)
     const rows = await result.container.querySelectorAll('tbody tr')
     expect(rows).toHaveLength(CLIENTS.length)
 })
 
 test("ClientTable line clients should have data", async () => {
-    const onRemoveClient = jest.fn()
-    render(<ClientTable clients={CLIENTS} onRemoveClient={onRemoveClient}
-        onSelectClient={() => { }} onSortClients={() => { }} sortCLients={[]}
-    />)
+    render(<ClientTable clients={CLIENTS} />)
     const name = await testScreen.findByText(CLIENTS[0].name)
     const email = await testScreen.findByText(CLIENTS[0].email)
     const coordinates = await testScreen.findByText(CLIENTS[0].coordinates.join(','))
@@ -53,9 +47,13 @@ test("ClientTable should call onRemoveClient function when remove button have be
         json: async () => ([])
     })
     const onRemoveClient = jest.fn()
-    const result = render(<ClientTable clients={CLIENTS} onRemoveClient={onRemoveClient}
-        onSelectClient={() => { }} onSortClients={() => { }} sortCLients={[]}
-    />)
+    const providerData = {
+        ...ClientContextValue,
+        remove: onRemoveClient
+    }
+    const result = render(<ClientContext.Provider value={providerData}>
+        <ClientTable clients={CLIENTS} />
+    </ClientContext.Provider>)
     const removeButton = await result.container.querySelector('svg[data-icon="trash"]')
     if (removeButton) {
         fireEvent.click(removeButton)
@@ -71,9 +69,13 @@ test("ClientTable should call onSelectClient function when edit button have been
         json: async () => ([])
     })
     const onSelectClient = jest.fn()
-    const result = render(<ClientTable clients={CLIENTS} onRemoveClient={() => { }}
-        onSelectClient={onSelectClient} onSortClients={() => { }} sortCLients={[]}
-    />)
+    const providerData = {
+        ...ClientContextValue,
+        select: onSelectClient
+    }
+    const result = render(<ClientContext.Provider value={providerData}>
+        <ClientTable clients={CLIENTS} />
+    </ClientContext.Provider>)
     const removeButton = await result.container.querySelector('svg[data-icon="pen-to-square"')
     if (removeButton) {
         fireEvent.click(removeButton)
@@ -83,33 +85,49 @@ test("ClientTable should call onSelectClient function when edit button have been
 
 
 test("ClientTable should have button sort-name-desc when receive ordenation by name desc", async () => {
-    render(<ClientTable clients={CLIENTS} onRemoveClient={() => { }}
-        onSelectClient={() => { }} onSortClients={() => { }} sortCLients={[0, 'desc']}
-    />)
+    const providerData = {
+        ...ClientContextValue,
+        sortField: [0, 'desc']
+    }
+    render(<ClientContext.Provider value={providerData}>
+        <ClientTable clients={CLIENTS} />
+    </ClientContext.Provider>)
     const sortButton = await testScreen.findByTitle('sort-name-desc')
     expect(sortButton).toBeInTheDocument()
 })
 
 test("ClientTable should have button sort-name-desc when receive ordenation by name asc", async () => {
-    render(<ClientTable clients={CLIENTS} onRemoveClient={() => { }}
-        onSelectClient={() => { }} onSortClients={() => { }} sortCLients={[0, 'asc']}
-    />)
+    const providerData = {
+        ...ClientContextValue,
+        sortField: [0, 'asc']
+    }
+    render(<ClientContext.Provider value={providerData}>
+        <ClientTable clients={CLIENTS} />
+    </ClientContext.Provider>)
     const sortButton = await testScreen.findByTitle('sort-name-asc')
     expect(sortButton).toBeInTheDocument()
 })
 
 test("ClientTable should have button sort-name-desc when receive ordenation by email desc", async () => {
-    render(<ClientTable clients={CLIENTS} onRemoveClient={() => { }}
-        onSelectClient={() => { }} onSortClients={() => { }} sortCLients={[1, 'desc']}
-    />)
+    const providerData = {
+        ...ClientContextValue,
+        sortField: [1, 'desc']
+    }
+    render(<ClientContext.Provider value={providerData}>
+        <ClientTable clients={CLIENTS} />
+    </ClientContext.Provider>)
     const sortButton = await testScreen.findByTitle('sort-email-desc')
     expect(sortButton).toBeInTheDocument()
 })
 
 test("ClientTable should have button sort-name-desc when receive ordenation by email asc", async () => {
-    render(<ClientTable clients={CLIENTS} onRemoveClient={() => { }}
-        onSelectClient={() => { }} onSortClients={() => { }} sortCLients={[1, 'asc']}
-    />)
+    const providerData = {
+        ...ClientContextValue,
+        sortField: [1, 'asc']
+    }
+    render(<ClientContext.Provider value={providerData}>
+        <ClientTable clients={CLIENTS} />
+    </ClientContext.Provider>)
     const sortButton = await testScreen.findByTitle('sort-email-asc')
     expect(sortButton).toBeInTheDocument()
 })

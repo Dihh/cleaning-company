@@ -2,7 +2,7 @@ import { Client, SearchClientTerms } from "../interfaces/Client"
 import { Metadata } from "../interfaces/MetaData"
 import { API } from "./api"
 
-export class CLientAPI extends API {
+export class ClientAPI extends API {
   static async getCLients(page: number, search: SearchClientTerms | undefined = undefined, sortCLients: (string | number)[]) {
     let searchTerm = ""
     if (search) {

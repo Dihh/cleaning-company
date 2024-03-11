@@ -1,15 +1,17 @@
 import { Col, Form, InputGroup } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import React from "react";
+import React, { useContext } from "react";
+import { ClientContext } from "../../store/client-context";
 
-const Search: React.FC<{onSearch: Function}> = ({onSearch}) => {
+const Search: React.FC = () => {
+  const {search} = useContext(ClientContext)
   let timeout: any;
   function handleSeach(event: any){
     clearTimeout(timeout);
     timeout = setTimeout(() => {
       const searchTerm = event.target.value
-      onSearch(searchTerm)
+      search(searchTerm)
     }, 1000);
   }
   return (

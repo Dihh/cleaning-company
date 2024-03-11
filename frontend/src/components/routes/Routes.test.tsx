@@ -3,16 +3,17 @@ import { screen as testScreen, fireEvent } from '@testing-library/react'
 
 import { render } from "@testing-library/react"
 import Routes from "./Routes"
+import { ClientContext, ClientContextValue } from '../../store/client-context'
 
 test("Routes should render calculate routes button", async () => {
-    render(<Routes getclientsRoutesKey={0} setclientsRoutesKey={() => { }} />)
+    render(<Routes />)
     const calculateRoutesButton = await testScreen.getByText('Calculate routes')
 
     expect(calculateRoutesButton).toBeInTheDocument();
 })
 
 test("Routes should render modal when button is clicked", async () => {
-    render(<Routes getclientsRoutesKey={0} setclientsRoutesKey={() => { }} />)
+    render(<Routes />)
     const calculateRoutesButton = await testScreen.getByText('Calculate routes')
     if (calculateRoutesButton) {
         fireEvent.click(calculateRoutesButton)
@@ -28,6 +29,12 @@ test("Routes should get clients routes", async () => {
         ok: true,
         json: async () => null
     })
-    render(<Routes getclientsRoutesKey={1} setclientsRoutesKey={() => { }} />)
+    const providerData = {
+        ...ClientContextValue,
+        getclientsRoutesKey: 1
+    }
+    render(<ClientContext.Provider value={providerData}>
+        <Routes />
+    </ClientContext.Provider>)
     expect(window.fetch).toHaveBeenCalled
 })
